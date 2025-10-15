@@ -21,14 +21,12 @@ objective.. Z =e= sum(y,(1/(1+r)**y.val) * (
         H(y) * (p - c * H(y)/2)) + ((p-c*stock(y)/20) * stock(y))$ymax(y)
         );
 
-stock_tracking(y).. stock(y) =e= (stock(y-1) - H(y-1))
-*                                *((1+f)*(1-stock(y-1)/carrying_capacity))
-                                *(1+f)
+stock_tracking(y).. stock(y) =e= (stock(y-1) - H(y-1))*(1+f)
                                  + init_stock$(y.val=1) ; 
 
 stock_limit(y).. stock(y) =g= H(y) ; 
 
-stock.lo(y) = init_stock /50; 
+stock.lo(y) = init_stock / 50; 
 
 model managed /all/ ; 
 
