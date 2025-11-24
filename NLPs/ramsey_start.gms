@@ -55,8 +55,7 @@ I(t) "investment"
 
 equations objfn, production, production_consumption, capital_stock; 
 
-objfn..
-W =e= sum(t, beta(t) * C(t)**(1-eta)) / (1-eta) ;
+objfn.. W =e= sum(t, beta(t) * C(t)**(1-eta)) / (1-eta) ;
 
 production(t).. y(t) =e= K(t)**b * L(t)**(1-b) ; 
 
