@@ -84,7 +84,7 @@ scalar cost_opt /0/ ;
 
 zpc_q(m,r)$[rep_m(m)$v_mr(m,r)].. 
     cbar(m,r) * (q(m,r) / qbar_mr(m,r)) ** (1/selas(m,r))$[not cost_opt]
-    - q(m,r) * (pbar(m) * qbar(m) ** (1/delas(m)) 
+    + q(m,r) * (pbar(m) * qbar(m) ** (1/delas(m)) 
       / (delas(m) * (sum(rr$v_mr(m,rr),q(m,rr))) ** (1/delas(m) + 1) )
       )$sw_gameon 
     =g= p(m) ; 
@@ -123,6 +123,7 @@ cbar.lo(m,r)$v_mr(m,r) = 0.1 * pbar(m) ;
 cbar.up(m,r)$v_mr(m,r) = 0.999 * pbar(m) ; 
 cbar.l(m,r)$v_mr(m,r) = pbar(m) ; 
 
+
 model mpec_calib
 /
 eq_mpec_obj,
@@ -138,7 +139,7 @@ rep_mpec("cbar_calib",m,r,"ratio")$v_mr(m,r) = cbar.l(m,r) / pbar(m) ;
 
 
 cbar.fx(m,r) = cbar.l(m,r) ; 
-selas.lo(m,r)$v_mr(m,r) = 1; 
+selas.lo(m,r)$v_mr(m,r) = 0.15; 
 selas.up(m,r)$v_mr(m,r) = 5 ; 
 selas.l(m,r)$v_mr(m,r) = 2 ; 
 
@@ -156,6 +157,7 @@ game.iterlim = 1e6 ;
 solve game using mcp ;
 set iter /0, 10, 20, 30, 40, 50/ ; 
 parameter rep_iter_q, rep_iter_p ; 
+
 loop(iter,
     dshock(m) = qbar(m) * iter.val / 100 ; 
     solve game using mcp ;
